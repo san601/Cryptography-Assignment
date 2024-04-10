@@ -9,7 +9,7 @@ def encrypt(plaintext):
     return ciphertext
 
 
-alphabet = '}' + '!' + '_' + '@' + '?' + string.ascii_uppercase + string.digits + string.ascii_lowercase
+alphabet = '!' + '}' + '_' + '@' + '?' + string.ascii_uppercase + string.digits + string.ascii_lowercase
 
 # plaintext = 'crypto{'
 plaintext = 'crypto{CRIME'
@@ -27,6 +27,6 @@ while True:
             flag = True
             break
         current_length = len(ciphertext)
-    if not flag:
+    if not flag or '}' in plaintext:
         print(plaintext)
         break
