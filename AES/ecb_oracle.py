@@ -6,7 +6,7 @@ import requests
 def response(plaintext):
     url = "http://aes.cryptohack.org/ecb_oracle/encrypt/"
     req = requests.get(url + plaintext.hex() + '/')
-    return byte_string.fromhex(req.json()['ciphertext'])
+    return plaintext.fromhex(req.json()['ciphertext'])
 
 
 char = ''
