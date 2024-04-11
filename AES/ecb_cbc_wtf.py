@@ -2,12 +2,12 @@ import os
 import requests
 from pwn import xor
 
-a = requests.get('https://aes.cryptohack.org/ecbcbcwtf/encrypt_flag/').json()['ciphertext']
-iv = bytes.fromhex(a[:32])
-ct1 = requests.get('https://aes.cryptohack.org/ecbcbcwtf/decrypt/' + a[32:32+32]).json()['plaintext']
-ct2 = requests.get('https://aes.cryptohack.org/ecbcbcwtf/decrypt/' + a[32+32:]).json()['plaintext']
+response = requests.get('https://aes.cryptohack.org/ecbcbcwtf/encrypt_flag/').json()['ciphertext']
+iv = response[:32]
+ct1 = response[32:32+32]
+ct2 = response[32+32:]
+pt1 = requests.get('https://aes.cryptohack.org/ecbcbcwtf/decrypt/' + ct1).json()['plaintext']
+pt2 = requests.get('https://aes.cryptohack.org/ecbcbcwtf/decrypt/' + ct2).json()['plaintext']
 
-print(xor(iv, bytes.fromhex(ct1)).decode(), end='')
-print(xor(bytes.fromhex(a[32:32+32]), bytes.fromhex(ct2)).decode())
-
-
+print(xor(bytes.fromhex(iv), bytes.fromhex(pt1)).decode(), end='')
+print(xor(bytes.fromhex(ct1), bytes.fromhex(pt2)).decode())
