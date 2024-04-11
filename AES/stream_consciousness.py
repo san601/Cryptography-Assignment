@@ -120,7 +120,7 @@ known_string = b'Dress-making '
 # b'And I shall i'
 # b'Our? Why our?'
 # ...
-# known_string = b'Love, probably? They don\'t know '
+known_string = b'Love, probably? They don\'t know '
 # b"It can't be torn out, but it can"
 # b"I'm unhappy, I deserve it, the f"
 # b'What a nasty smell this paint ha'
