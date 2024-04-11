@@ -1,8 +1,13 @@
 import os
+import requests
+from pwn import xor
 
-iv = os.urandom(16)
-print(len(iv.hex()))
-a = 'eed934a273821c508880ce3d431d4094cdb6f093dfab429cd56b151bae4368bea629d7bd6efcc50f3c41bc0538986d2f'
-print(a[:32])
-print(a[32:32+32])
-print(a[32+32:])
+a = requests.get('https://aes.cryptohack.org/ecbcbcwtf/encrypt_flag/').json()['ciphertext']
+iv = bytes.fromhex(a[:32])
+ct1 = requests.get('https://aes.cryptohack.org/ecbcbcwtf/decrypt/' + a[32:32+32]).json()['plaintext']
+ct2 = requests.get('https://aes.cryptohack.org/ecbcbcwtf/decrypt/' + a[32+32:]).json()['plaintext']
+
+print(xor(iv, bytes.fromhex(ct1)).decode(), end='')
+print(xor(bytes.fromhex(a[32:32+32]), bytes.fromhex(ct2)).decode())
+
+
